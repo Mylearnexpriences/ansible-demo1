@@ -1,0 +1,10 @@
+---
+# tasks file for httpd
+- name: install httpd
+  package: name=httpd state=present
+
+- name: copying httpd.conf template
+  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+
+- name: manage service
+  service: name=httpd state=started enabled=yes

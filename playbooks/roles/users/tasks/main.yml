@@ -1,0 +1,11 @@
+---
+# tasks file for users
+- name: creating group
+  group: name={{ group.name }} state=present
+
+- name: creating users
+  user: name={{ item }} state=present groups:{{ group.name }}
+  with_items:
+    - suresh
+    - ramesh
+    - mahesh

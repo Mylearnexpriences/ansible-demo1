@@ -1,0 +1,10 @@
+--- 
+
+- hosts: java_web
+  roles:
+    - users
+    - ntp
+    - nagios-client
+    - java 
+    - tomcat 
+    

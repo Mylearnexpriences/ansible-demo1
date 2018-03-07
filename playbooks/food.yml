@@ -1,0 +1,35 @@
+---
+- hosts: 192.168.11.169
+  remote_user: root 
+  tasks:
+#    - name: installing httpd
+#      yum: name=httpd state=present
+#    - name: installing git
+#      yum: name=git state=present
+
+    - name: installing package using loop
+      package: name={{ item }} state=present
+      when: ansible_os_family == "RedHat"
+      with_items:
+        - httpd
+        - git
+       
+    - name: installing package using loop
+      package: name={{ item }} state=present
+      when: ansible_os_family == "Ubuntu"
+      with_items:
+        - apache2
+        - git
+
+    - name: configuring proxy for git
+      command: git config --global http.proxy http://192.168.11.1:3128
+    - name: cloning git repo
+      git: repo=https://github.com/demoglot/html-samples-food.git dest=/var/www/html
+      when: ansible_os_family == "RedHat"
+ 
+    - name: cloning git repo
+      git: repo=https://github.com/demoglot/html-samples-food.git dest=/usr/local/apache2/htdocs
+      when: ansible_os_family == "Ubuntu"
+
+    - name: starting httpd service 
+      service: name=httpd state=started

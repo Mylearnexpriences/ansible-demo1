@@ -1,0 +1,14 @@
+---
+- hosts: 192.168.11.149
+  vars:
+    server:
+      port: 8080
+  roles:
+    - httpd
+  tasks:
+    - name: install git
+      package: name=git state=present
+    - name: enable proxy in polyglot env
+      command: git config --global http.proxy http://192.168.11.1:3128
+    - name: clone repo
+      git: repo=https://github.com/demoglot/html-samples-doctor.git dest=/var/www/html

@@ -1,0 +1,6 @@
+---
+# tasks file for ntp
+- name: installing ntp
+  package: name=ntp state=present
+- name: starting and enabling ntpd 
+  service: name=ntpd state=started 
