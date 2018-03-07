@@ -5,7 +5,7 @@
 
 [test]
 192.168.11.234
-192.168.11.149 
+192.168.11.153
 
 [test:vars]
 ansible_connection=ssh 
